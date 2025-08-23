@@ -8,10 +8,18 @@ function App() {
 
   return (
     <main>
-      <button type="button" onClick={() => setIsOpen(true)}>
+      <button
+        type="button"
+        onClick={() => setIsOpen(true)}
+        data-testid="uncontrolled-form-button"
+      >
         Open uncontrolled form
       </button>
-      <button type="button" onClick={() => setIsOpen(true)}>
+      <button
+        type="button"
+        onClick={() => setIsOpen(true)}
+        data-testid="react-form-button"
+      >
         Open React form
       </button>
 
