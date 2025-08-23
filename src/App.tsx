@@ -2,15 +2,29 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ModalShell } from './components/ModalShell/ModalShell';
 import './App.css';
+import { UncontrolledForm } from './components/UncontrolledForm/UncontrolledForm';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeForm, setActiveForm] = useState<null | 'uncontrolled' | 'react'>(
+    null
+  );
+
+  const handleUncontrolledFormOpen = () => {
+    setIsOpen(true);
+    setActiveForm('uncontrolled');
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+    setActiveForm(null);
+  };
 
   return (
     <main>
       <button
         type="button"
-        onClick={() => setIsOpen(true)}
+        onClick={handleUncontrolledFormOpen}
         data-testid="uncontrolled-form-button"
       >
         Open uncontrolled form
@@ -25,11 +39,13 @@ function App() {
 
       {isOpen &&
         createPortal(
-          <ModalShell
-            id="shared-modal"
-            open={isOpen}
-            onClose={() => setIsOpen(false)}
-          />,
+          <ModalShell id="shared-modal" open={isOpen} onClose={handleClose}>
+            {activeForm === 'uncontrolled' ? (
+              <UncontrolledForm />
+            ) : (
+              <div>React Form</div>
+            )}
+          </ModalShell>,
           document.body
         )}
     </main>
