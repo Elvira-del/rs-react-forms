@@ -1,3 +1,5 @@
+import { useForm, type SubmitHandler } from 'react-hook-form';
+
 const countries = [
   'United Kingdom',
   'France',
@@ -16,13 +18,30 @@ const inputBase =
 
 const labelBase = 'mb-1.5 block text-sm/6 font-medium text-neutral-700';
 
-export const UncontrolledForm = () => {
+type Inputs = {
+  name: string;
+  age: number;
+  email: string;
+  password: string;
+  confirm: string;
+  country: string;
+  picture: FileList;
+  terms: boolean;
+};
+
+export const ReactForm = () => {
+  const { register, handleSubmit } = useForm<Inputs>();
+
+  const handleSubmitForm: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+  };
+
   return (
     <form
-      id="uncontrolledForm"
+      id="reactForm"
       className="space-y-5"
       action="#"
-      onSubmit={(e) => e.preventDefault()}
+      onSubmit={handleSubmit(handleSubmitForm)}
     >
       <div className="grid gap-4 sm:grid-cols-2">
         <label className={labelBase} htmlFor="name">
@@ -34,6 +53,7 @@ export const UncontrolledForm = () => {
             className={inputBase}
             type="text"
             placeholder="John"
+            {...register('name', { required: true })}
           />
         </label>
 
@@ -49,6 +69,7 @@ export const UncontrolledForm = () => {
             min={0}
             step={1}
             placeholder="25"
+            {...register('age', { required: true, valueAsNumber: true })}
           />
         </label>
 
@@ -61,6 +82,7 @@ export const UncontrolledForm = () => {
             className={inputBase}
             type="email"
             placeholder="name@example.com"
+            {...register('email', { required: true })}
           />
         </label>
 
@@ -73,6 +95,7 @@ export const UncontrolledForm = () => {
             className={inputBase}
             type="password"
             placeholder="••••••••"
+            {...register('password', { required: true })}
           />
         </label>
 
@@ -85,6 +108,7 @@ export const UncontrolledForm = () => {
             className={inputBase}
             type="password"
             placeholder="••••••••"
+            {...register('confirm', { required: true })}
           />
         </label>
 
@@ -122,6 +146,7 @@ export const UncontrolledForm = () => {
               className={inputBase}
               list="countries"
               placeholder="Start typing…"
+              {...register('country', { required: true })}
             />
             <datalist id="countries">
               {countries.map((country) => (
@@ -149,6 +174,7 @@ export const UncontrolledForm = () => {
             className="sr-only"
             type="file"
             accept="image/*"
+            {...register('picture')}
           />
         </div>
 
@@ -158,6 +184,7 @@ export const UncontrolledForm = () => {
               id="terms"
               className="size-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-300"
               type="checkbox"
+              {...register('terms', { required: true })}
             />
             <span className="text-sm text-neutral-700">
               I accept the{' '}

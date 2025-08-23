@@ -1,18 +1,24 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ModalShell } from './components/ModalShell/ModalShell';
-import './App.css';
 import { UncontrolledForm } from './components/UncontrolledForm/UncontrolledForm';
+import { ReactForm } from './components/ReactForm/ReactForm';
+import './App.css';
+
+type FormType = 'uncontrolled' | 'react';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeForm, setActiveForm] = useState<null | 'uncontrolled' | 'react'>(
-    null
-  );
+  const [activeForm, setActiveForm] = useState<null | FormType>(null);
 
   const handleUncontrolledFormOpen = () => {
     setIsOpen(true);
     setActiveForm('uncontrolled');
+  };
+
+  const handleReactFormOpen = () => {
+    setIsOpen(true);
+    setActiveForm('react');
   };
 
   const handleClose = () => {
@@ -31,7 +37,7 @@ function App() {
       </button>
       <button
         type="button"
-        onClick={() => setIsOpen(true)}
+        onClick={handleReactFormOpen}
         data-testid="react-form-button"
       >
         Open React form
@@ -39,11 +45,18 @@ function App() {
 
       {isOpen &&
         createPortal(
-          <ModalShell id="shared-modal" open={isOpen} onClose={handleClose}>
+          <ModalShell
+            id="shared-modal"
+            open={isOpen}
+            onClose={handleClose}
+            formId={
+              activeForm === 'uncontrolled' ? 'uncontrolledForm' : 'reactForm'
+            }
+          >
             {activeForm === 'uncontrolled' ? (
               <UncontrolledForm />
             ) : (
-              <div>React Form</div>
+              <ReactForm />
             )}
           </ModalShell>,
           document.body

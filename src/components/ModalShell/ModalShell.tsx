@@ -5,8 +5,9 @@ type ModalShellProps = {
   open: boolean;
   title?: string;
   description?: string;
-  children?: React.ReactNode;
+  children: React.ReactNode;
   onClose: () => void;
+  formId: string;
 };
 
 export const ModalShell = ({
@@ -16,6 +17,7 @@ export const ModalShell = ({
   description = 'Modal Description',
   children,
   onClose,
+  formId,
 }: ModalShellProps) => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -109,8 +111,10 @@ export const ModalShell = ({
                   Cancel
                 </button>
                 <button
-                  className="rounded-xl bg-neutral-900 px-4 py-2.5 text-sm font-medium  shadow-sm transition hover:bg-neutral-800 text-neutral-700"
-                  type="button"
+                  className="rounded-xl bg-neutral-900 px-4 py-2.5 text-sm font-medium  shadow-sm transition hover:bg-neutral-800 text-white"
+                  type="submit"
+                  form={formId}
+                  data-testid="submit-button"
                 >
                   Save changes
                 </button>
