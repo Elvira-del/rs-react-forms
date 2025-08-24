@@ -25,7 +25,7 @@ export const UncontrolledForm = () => {
       onSubmit={(e) => e.preventDefault()}
     >
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className={labelBase} htmlFor="name">
+        <label className={labelBase} htmlFor="name" data-testid="name-label">
           <span>
             Name <span className="text-red-600">*</span>
           </span>
@@ -34,10 +34,12 @@ export const UncontrolledForm = () => {
             className={inputBase}
             type="text"
             placeholder="John"
+            required
+            data-testid="name-input"
           />
         </label>
 
-        <label className={labelBase} htmlFor="age">
+        <label className={labelBase} htmlFor="age" data-testid="age-label">
           <span>
             Age <span className="text-red-600">*</span>
           </span>
@@ -49,10 +51,12 @@ export const UncontrolledForm = () => {
             min={0}
             step={1}
             placeholder="25"
+            required
+            data-testid="age-input"
           />
         </label>
 
-        <label className={labelBase} htmlFor="email">
+        <label className={labelBase} htmlFor="email" data-testid="email-label">
           <span>
             Email <span className="text-red-600">*</span>
           </span>
@@ -61,10 +65,16 @@ export const UncontrolledForm = () => {
             className={inputBase}
             type="email"
             placeholder="name@example.com"
+            required
+            data-testid="email-input"
           />
         </label>
 
-        <label className={labelBase} htmlFor="password">
+        <label
+          className={labelBase}
+          htmlFor="password"
+          data-testid="password-label"
+        >
           <span>
             Password <span className="text-red-600">*</span>
           </span>
@@ -73,10 +83,16 @@ export const UncontrolledForm = () => {
             className={inputBase}
             type="password"
             placeholder="••••••••"
+            required
+            data-testid="password-input"
           />
         </label>
 
-        <label className={labelBase} htmlFor="confirm">
+        <label
+          className={labelBase}
+          htmlFor="confirm"
+          data-testid="confirm-password-label"
+        >
           <span>
             Confirm password <span className="text-red-600">*</span>
           </span>
@@ -85,6 +101,8 @@ export const UncontrolledForm = () => {
             className={inputBase}
             type="password"
             placeholder="••••••••"
+            required
+            data-testid="confirm-password-input"
           />
         </label>
 
@@ -98,12 +116,14 @@ export const UncontrolledForm = () => {
                 <label
                   key={gender}
                   className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-sm text-neutral-700 shadow-sm"
+                  data-testid={`gender-${gender.toLowerCase()}-label`}
                 >
                   <input
                     type="radio"
                     name="gender"
                     defaultChecked={idx === 0}
                     className="size-4 rounded-full border-neutral-300 text-neutral-900 focus:ring-neutral-300"
+                    data-testid={`gender-${gender.toLowerCase()}-input`}
                   />
                   <span>{gender}</span>
                 </label>
@@ -113,7 +133,11 @@ export const UncontrolledForm = () => {
         </div>
 
         <div className="sm:col-span-2">
-          <label className={labelBase} htmlFor="country">
+          <label
+            className={labelBase}
+            htmlFor="country"
+            data-testid="country-label"
+          >
             <span>
               Country <span className="text-red-600">*</span>
             </span>
@@ -122,6 +146,8 @@ export const UncontrolledForm = () => {
               className={inputBase}
               list="countries"
               placeholder="Start typing…"
+              required
+              data-testid="country-input"
             />
             <datalist id="countries">
               {countries.map((country) => (
@@ -132,7 +158,11 @@ export const UncontrolledForm = () => {
         </div>
 
         <div className="sm:col-span-2">
-          <label className={labelBase} htmlFor="picture">
+          <label
+            className={labelBase}
+            htmlFor="picture"
+            data-testid="picture-label"
+          >
             Upload picture
           </label>
           <label
@@ -149,15 +179,21 @@ export const UncontrolledForm = () => {
             className="sr-only"
             type="file"
             accept="image/*"
+            data-testid="picture-input"
           />
         </div>
 
         <div className="sm:col-span-2">
-          <label className="inline-flex items-center gap-3" htmlFor="terms">
+          <label
+            className="inline-flex items-center gap-3"
+            htmlFor="terms"
+            data-testid="terms-label"
+          >
             <input
               id="terms"
               className="size-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-300"
               type="checkbox"
+              data-testid="terms-input"
             />
             <span className="text-sm text-neutral-700">
               I accept the{' '}
